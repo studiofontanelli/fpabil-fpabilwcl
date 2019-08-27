@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LogEngineService } from './log-engine.service';
+import { AnagraficaService } from './anagrafica.service';
 
-describe('LogEngineService', () => {
+describe('AnagraficaService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: LogEngineService = TestBed.get(LogEngineService);
+    const service: AnagraficaService = TestBed.get(AnagraficaService);
     expect(service).toBeTruthy();
   });
 });

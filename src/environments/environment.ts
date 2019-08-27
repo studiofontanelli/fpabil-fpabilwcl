@@ -8,8 +8,10 @@ import { NgxLoggerLevel } from 'ngx-logger';
 export const environment = {
   production: false,
   apiUrl: 'http://localhost/', // Replace with local API
-  logLevel: NgxLoggerLevel.ERROR,
-  serverLogLevel: NgxLoggerLevel.OFF
+  logLevel: NgxLoggerLevel.DEBUG,
+  serverLogLevel: NgxLoggerLevel.OFF,
+  fpabilblEndpoint: 'http://localhost/fpabilbl/rest/'
+
 };
 
 

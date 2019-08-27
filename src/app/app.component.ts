@@ -1,8 +1,17 @@
 import { Component } from '@angular/core';
-import { LogEngineService } from './services/log-engine/log-engine.service';
+import { HttpClient } from '@angular/common/http';
 
+import {map} from 'rxjs/operators';
 
 import { NGXLogger } from 'ngx-logger';
+
+import { environment } from 'src/environments/environment';
+
+
+import {Provincia} from 'src/app/models/common/provincia.model';
+import { AnagraficaService } from './services/common/anagrafica.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -12,30 +21,41 @@ import { NGXLogger } from 'ngx-logger';
 export class AppComponent {
   title = 'fpabil-fpabilwcl';
 
-  /*
-  constructor(private logger: NGXLogger) {
-    this.logger.debug("Debug message");
-    this.logger.info("Info message");
-    this.logger.log("Default log message");
-    this.logger.warn("Warning message");
-    this.logger.error("Error message");
-  }
-  */
+  elencoProvince: Provincia [] = [];
+  isLoading = false;
 
-  constructor(private logService: LogEngineService, private log: NGXLogger) { 
+  constructor(private http: HttpClient, private log: NGXLogger, private anagraficaService: AnagraficaService) { 
+    this.log.debug('APP COMPONENT....' +  environment.fpabilblEndpoint);
+     
+    let obs =  this.http.get('https://api.github.com/users/koushikkothagal');
+    obs.subscribe((response) => 
+        console.debug('RESPONSE ' + response)
+    );
 
-    this.logService.debug('DEBUG');
-    this.logService.info("INFO");
-    this.logService.warn("WARN");
-    this.logService.error("ERROR");
-
-
-    this.log.debug('MAREMMA CANE');
+    
+    
+    //this.getProvince();
   }
 
- /*constructor() {
-  
+  ngOnInit() {
+   
+    this.onFetchProvince();
+    this.log.debug('AppComponent:ngOnInit done');
+  }
+
+onFetchProvince(){
+  this.isLoading = true; 
+  this.anagraficaService.getProvince().subscribe( province =>{
+     this.isLoading = false; 
+     this.log.debug('province= ' + JSON.stringify(province));
+     this.elencoProvince = province;
+     this.log.debug('elencoProvince= ' + JSON.stringify(this.elencoProvince));
+  });
+
 }
-*/
+
+
+  
+
 
 }

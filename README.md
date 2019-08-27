@@ -131,4 +131,4 @@ app/components/common/header
 
 # Come creare un servizio
 
-ng generate service services/stocks
+ng generate service services/common/anagrafica
