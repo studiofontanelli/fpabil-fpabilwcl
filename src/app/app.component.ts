@@ -9,7 +9,9 @@ import { environment } from 'src/environments/environment';
 
 
 import {Provincia} from 'src/app/models/common/provincia.model';
+import {Comune} from 'src/app/models/common/comune.model';
 import { AnagraficaService } from './services/common/anagrafica.service';
+
 
 
 
@@ -22,7 +24,9 @@ export class AppComponent {
   title = 'fpabil-fpabilwcl';
 
   elencoProvince: Provincia [] = [];
+  elencoComuni: Comune [] = [];
   isLoading = false;
+  error = null;
 
   constructor(private http: HttpClient, private log: NGXLogger, private anagraficaService: AnagraficaService) { 
     this.log.debug('APP COMPONENT....' +  environment.fpabilblEndpoint);
@@ -40,6 +44,7 @@ export class AppComponent {
   ngOnInit() {
    
     this.onFetchProvince();
+    this.onFetchComuniByProvincia();
     this.log.debug('AppComponent:ngOnInit done');
   }
 
@@ -47,9 +52,28 @@ onFetchProvince(){
   this.isLoading = true; 
   this.anagraficaService.getProvince().subscribe( province =>{
      this.isLoading = false; 
-     this.log.debug('province= ' + JSON.stringify(province));
      this.elencoProvince = province;
      this.log.debug('elencoProvince= ' + JSON.stringify(this.elencoProvince));
+  }, error => {
+    this.isLoading = false; 
+    this.log.error('Si è verificato un errore: ' + error.message);
+    this.error = error.message;
+    this.log.error('Error message: ' + this.error);
+  });
+
+}
+
+onFetchComuniByProvincia(){
+  const prov = '001';
+  this.anagraficaService.getComuniByProvincia(prov).subscribe( result =>{
+     
+     this.elencoComuni = result;
+     this.log.debug('elencoComuni= ' + JSON.stringify(this.elencoComuni));
+  }, error => {
+    this.isLoading = false; 
+    this.log.error('Si è verificato un errore: ' + error.message);
+    this.error = error.message;
+    this.log.error('Error message: ' + this.error);
   });
 
 }

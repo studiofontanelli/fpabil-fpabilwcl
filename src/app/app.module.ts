@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 import { LoggerModule } from 'ngx-logger';
@@ -13,6 +13,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/common/header/header.component';
 import { FooterComponent } from './components/common/footer/footer.component';
+
+
+import { AuthInterceptorService } from './services/common/auth-interceptor.service';
+import { LoggingInterceptorService } from './services/common/logging-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,16 @@ import { FooterComponent } from './components/common/footer/footer.component';
       disableConsoleLogging: false
     })
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, 
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthInterceptorService, 
+      multi: true},
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: LoggingInterceptorService, 
+      multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
