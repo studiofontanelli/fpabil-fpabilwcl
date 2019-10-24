@@ -1,0 +1,56 @@
+RICHIEDENTE: {{this.dataService.richiedente | json}} <br>
+OPERATORE: {{this.dataService.operatore | json}} <br>
+ELENCO PERSONE: {{this.dataService.elencoPersona | json}}
+
+
+
+<table class="table">
+        <caption>{{title}}</caption>
+        <thead>
+                <tr>
+                 
+                  <th scope="col">Nome</th>
+                  <th scope="col">Cognome</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+        <tbody>
+            
+            <!--
+            <tr app-persona-row *ngFor = "let persona of this.dataService.elencoPersona" 
+                [persona-data] = "persona"
+                (onSelectPersona) ="onSelectPersona($event)"
+                >       
+                    
+            <tr>
+              -->
+              <tr app-persona-row *ngFor = "let persona of this.dataService.elencoPersona" 
+              [persona-data] = "persona"
+              (onDeletePersona) ="onDeletePersona($event)"
+              
+              >  
+              </tr>     
+                  
+          <tr>
+        </tbody>
+      </table>
+
+
+
+<form role="form">
+    <div class="panel panel-primary setup-content" id="step-1">
+        
+            
+            
+            
+            <button class="btn btn-success nextBtn pull-right" type="button" (click)="onNext()">Next</button>
+            
+            <button class="btn btn-primary nextBtn pull-left" type="button" (click)="onBack()">Indietro</button>
+            
+            <button class="btn btn-primary nextBtn pull-left" type="button" (click)="addPersona()">Aggiungi</button>
+            
+       
+    </div>
+
+    
+</form>

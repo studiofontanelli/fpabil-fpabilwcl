@@ -1,0 +1,29 @@
+RICHIEDENTE: {{this.dataService.richiedente | json}}
+
+<form role="form">
+    <input name="id" type="hidden" [(ngModel)]="persona.id" />      
+    <div class="panel panel-primary setup-content" id="step-144">
+        <div class="panel-heading">
+            <h3 class="panel-title">Dettaglio personale da abilitare/disabilitare</h3>
+        </div>
+        
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label">Nome</label>
+                <input name="nome" class="form-control" [(ngModel)]="persona.nome" />        
+             </div>
+           
+            
+            
+            
+            <button class="btn btn-success nextBtn pull-right" type="button" (click)="onSave()">Salva</button>
+
+            <button class="btn btn-success nextBtn pull-right" type="button" (click)="onAnnulla()">Annulla</button>
+            
+            
+        </div>
+    </div>
+
+    
+</form>
+

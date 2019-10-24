@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
 import {map} from 'rxjs/operators';
 
 import { NGXLogger } from 'ngx-logger';
@@ -11,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import {Provincia} from 'src/app/models/common/provincia.model';
 import {Comune} from 'src/app/models/common/comune.model';
 import { AnagraficaService } from './services/common/anagrafica.service';
+import { Richiedente } from './models/richiedente/richiedente.model';
 
 
 
@@ -23,10 +25,14 @@ import { AnagraficaService } from './services/common/anagrafica.service';
 export class AppComponent {
   title = 'fpabil-fpabilwcl';
 
+  richiedenteSelected: Richiedente = new Richiedente();
+  
   elencoProvince: Provincia [] = [];
   elencoComuni: Comune [] = [];
   isLoading = false;
   error = null;
+  
+
 
   constructor(private http: HttpClient, private log: NGXLogger, private anagraficaService: AnagraficaService) { 
     this.log.debug('APP COMPONENT....' +  environment.fpabilblEndpoint);

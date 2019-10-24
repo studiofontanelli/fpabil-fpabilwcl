@@ -1,13 +1,18 @@
 export class Persona {
 
+    public id:      number;
     public nome:    string;
     public cognome: string;
-    public codiceFiscale: string;
+    public numeroDocumento: string;
     public dataNascita: Date;
+    public email: string;
+    public tipoRichiesta: string;
+    public richiestaCertificatoDigitale: boolean;
+    public tipoDocumento: string;
 
-    constructor(nome: string, cognome: string, codiceFiscale: string){
-        this.nome = nome;
-        this.cognome = cognome;
-        this.codiceFiscale = codiceFiscale;
+    /*
+    constructor(id: number){
+       this.id = id;
     }
+    */
 }

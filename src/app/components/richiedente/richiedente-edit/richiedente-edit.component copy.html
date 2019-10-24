@@ -1,0 +1,81 @@
+
+
+PROVINCE: {{this.elencoProvince | json}}
+
+<form #f="ngForm">
+    <div class="panel panel-primary setup-content" id="step-richiedente">
+        <div class="panel-heading">
+             <h3 class="panel-title">Richiedente</h3>
+        </div>
+        <div class="panel-body">
+            
+            <div class="form-group col-sm-6">
+                <label for="nome">Nome</label>
+                <input placeholder="Nome" name="nome" id="nome" class="form-control" 
+                        #nome="ngModel" required [(ngModel)]="richiedente.nome" />        
+                <div *ngIf="nome.invalid && nome.errors.required && (nome.dirty || nome.touched)" class="alert alert-danger">
+                    Campo obbligatorio
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">Cognome</label>
+                <input id="cognome" name="cognome" [(ngModel)]="richiedente.cognome"  
+                class="form-control" placeholder="Inserire il Cognome" #cognome="ngModel" required />
+
+                <div *ngIf="cognome.invalid && cognome.errors.required && (cognome.dirty || cognome.touched)" class="alert alert-danger">
+                    Campo obbligatorio
+                </div>
+            </div>
+
+            
+            <div class="form-group col-sm-6">
+                <label for="telefono">Telefono</label>
+                <input placeholder="Telefono" name="telefono" id="telefono" type="tel" class="form-control" 
+                        #telefono="ngModel" required [(ngModel)]="richiedente.telefono" />        
+                <div *ngIf="telefono.invalid && telefono.errors.required && (telefono.dirty || telefono.touched)" class="alert alert-danger">
+                    Campo obbligatorio
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                    <label for="email">Email</label>
+                    <input placeholder="Email" name="email" id="email" type=email class="form-control" 
+                            #email="ngModel" required email [(ngModel)]="richiedente.email" />        
+                    <div *ngIf="email.invalid && email.errors.required && (email.dirty || email.touched)" class="alert alert-danger">
+                        Campo obbligatorio
+                    </div>
+                    <div *ngIf="email.invalid && email.errors.email && (email.dirty || email.touched)" class="alert alert-danger">
+                        Il campo non è un email valida
+                    </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="telefono">Telefono</label>
+                <input placeholder="Data nascita" name="dataNascita" id="dataNascita" type=date class="form-control" 
+                            #dataNascita="ngModel" required [(ngModel)]="richiedente.dataNascita" />        
+                    <div *ngIf="dataNascita.invalid && dataNascita.errors.required && (dataNascita.dirty || dataNascita.touched)" class="alert alert-danger">
+                        Campo obbligatorio
+                    </div>
+                </div>
+            
+            <!--
+            <div class="form-group">
+                <label class="control-label">Provincia</label>
+                <select class="form-control" name="provinciaNascita"  [(ngModel)]="elencoProvince"  id="provinciaNascita">
+                    <option *ngFor="let p of elencoProvince" [value]="p.codice" >
+                        {{p.descrizione}}
+                    </option>
+                  </select>
+            </div>
+             -->
+            
+            
+            <button [disabled]="f.invalid" class="btn btn-primary nextBtn pull-right" (click)="onNext()">Conferma e prosegui
+
+            </button>
+           
+        </div>
+    </div>
+
+    
+</form>
+

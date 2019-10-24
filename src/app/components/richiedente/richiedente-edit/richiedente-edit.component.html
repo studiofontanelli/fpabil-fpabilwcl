@@ -1,0 +1,104 @@
+
+
+PROVINCE: {{this.elencoProvince | json}} <br>
+FORM INVALID: {{richiedenteForm.controls.nome}} <br>
+
+
+<form [formGroup]="richiedenteForm">
+    <div class="panel panel-primary setup-content" id="step-richiedente">
+        <div class="panel-heading">
+             <h3 class="panel-title">Richiedente</h3>
+        </div>
+        <div class="panel-body">
+            
+            <div class="form-group col-sm-6">
+                <label for="nome">Nome</label>
+                <input 
+                    type="text"
+                    placeholder="Nome" 
+                    name="nome" 
+                    id="nome" 
+                    class="form-control" 
+                    formControlName= "nome"
+                    [(ngModel)]="richiedente.nome"
+                     />   
+                
+                <div *ngIf="submitted && richiedenteForm.controls.nome.errors" >
+                    <div *ngIf="richiedenteForm.controls.nome.errors.required" class="alert-danger">Il nome e' un campo obbligatorio</div>
+                </div>    
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label">Cognome</label>
+                <input 
+                    type="text"
+                    id="cognome" 
+                    name="cognome" 
+                    class="form-control" 
+                    formControlName= "cognome"
+                    placeholder="Inserire il Cognome"
+                    [(ngModel)]="richiedente.cognome"  />
+            
+                <div *ngIf="submitted && richiedenteForm.controls.cognome.errors">
+                    <div *ngIf="richiedenteForm.controls.cognome.errors.required"  class="alert-danger">Il cognome e' un campo obbligatorio</div>
+                </div> 
+            </div>
+
+            <div class="form-group col-sm-6">
+                    <label for="email">Email</label>
+                    <input 
+                        placeholder="Email" 
+                        name="email" 
+                        id="email" 
+                        type="email" 
+                        class="form-control" 
+                        formControlName= "email"
+                        [(ngModel)]="richiedente.email"
+                    />
+                    <div *ngIf="submitted && richiedenteForm.controls.email.errors">
+                        <div *ngIf="richiedenteForm.controls.email.errors.required"  class="alert-danger">Email e' un campo obbligatorio</div>
+                        <div *ngIf="richiedenteForm.controls.email.errors.email"  class="alert-danger">Formato Email non corretto</div>
+                    </div>          
+                    
+            </div>
+            <div class="form-group col-sm-6">
+                    <label for="email">Telefono</label>
+                    <input 
+                        placeholder="Telefono" 
+                        name="telefono" 
+                        id="telefono" 
+                        type="text" 
+                        class="form-control" 
+                        formControlName= "telefono"
+                        [(ngModel)]="richiedente.telefono"
+                    />
+                <div *ngIf="submitted && richiedenteForm.controls.telefono.errors">
+                    <div *ngIf="richiedenteForm.controls.telefono.errors.required"  class="alert-danger">Il telefono e' un campo obbligatorio</div>
+                </div>    
+                
+            </div>
+            
+            <!--
+            <div class="form-group">
+                <label class="control-label">Provincia</label>
+                <select class="form-control" name="provinciaNascita"  [(ngModel)]="elencoProvince"  id="provinciaNascita">
+                    <option *ngFor="let p of elencoProvince" [value]="p.codice" >
+                        {{p.descrizione}}
+                    </option>
+                  </select>
+            </div>
+             -->
+            
+            
+            <button 
+                class="btn btn-primary nextBtn pull-right" 
+                (click)="onNext()">
+                Conferma e prosegui
+            </button>
+           
+        </div>
+    </div>
+
+    
+</form>
+
