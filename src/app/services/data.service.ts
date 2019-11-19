@@ -12,9 +12,10 @@ export class DataService {
 
   public richiedente: Richiedente;
   public operatore: Operatore;
-
   public elencoPersona =  [];
   
+
+
 
   constructor() { 
 

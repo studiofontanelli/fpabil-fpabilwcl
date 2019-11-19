@@ -1,16 +1,26 @@
 export class Operatore {
 
 
-    public nome:    string;
-    public cognome: string;
+    public codice:    string;
+    public gruppo: string;
     public codiceFiscale: string;
-    public dataNascita: Date;
+    public partitaIva: string;
+    tipoStatoSedeLegale: string;
+    comuneSedeLegale: string;
+    provinciaSedeLegale: string;
+    indirizzoSedeLegale: string;
+    capSedeLegale: string;
 
-    /*
-    constructor(nome: string, cognome: string, codiceFiscale: string){
-        this.nome = nome;
-        this.cognome = cognome;
-        this.codiceFiscale = codiceFiscale;
+    statoEsteroSedeLegale: string;
+    cittaEsteraSedeLegale: string;
+    telefono: string;
+    telefonoSecondario: string;
+    fax: string;
+    email: string;
+    
+
+    
+    constructor(){
     }
-    */
+    
 }

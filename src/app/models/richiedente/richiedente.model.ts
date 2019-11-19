@@ -6,10 +6,11 @@ export class Richiedente {
     public natoInItalia: boolean;
     public comuneNascita: string;
     public provinciaNascita: string;
-    public statoEstero: string;
-    public cittaEstera: string;
+    public statoEsteroNascita: string;
+    public cittaEsteraNascita: string;
     telefono: string;
     email: string;
+    tipoStatoNascita: string;
     
 
     /*

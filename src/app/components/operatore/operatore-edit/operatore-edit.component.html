@@ -1,18 +1,215 @@
 
 RICHIEDENTE: {{this.dataService.richiedente | json}}
 
-<form role="form">
-    <div class="panel panel-primary setup-content" id="step-1">
+<form [formGroup]="operatoreForm">
+    <div class="panel panel-primary setup-content" id="step-operatore">
         <div class="panel-heading">
-            <h3 class="panel-title">Operatore</h3>
+            <h3 class="panel-title">Dati Operatore - Ente</h3>
         </div>
         
         <div class="panel-body">
-            <div class="form-group">
-                <label class="control-label">Nome</label>
-                <input name="nome" class="form-control" [(ngModel)]="operatore.nome" />        
-             </div>
-           
+            <div class="form-group col-sm-6">
+                <label for="gruppo">Gruppo</label>
+                    <input 
+                        type="text"
+                        placeholder="Inserire il Gruppo Operatore" 
+                        name="gruppo" 
+                        id="gruppo" 
+                        class="form-control" 
+                        formControlName= "gruppo"
+                        [(ngModel)]="operatore.gruppo"
+                    />   
+                    <div *ngIf="submitted && operatoreForm.controls.gruppo.errors" >
+                        <div *ngIf="operatoreForm.controls.gruppo.errors.required" class="alert-danger">Il gruppo e' un campo obbligatorio</div>
+                    </div>    
+            </div>
+        
+            <div class="form-group col-sm-6">
+                <label class="control-label">Codice</label>
+                <input 
+                            type="text"
+                            id="codice" 
+                            name="codice" 
+                            class="form-control" 
+                            formControlName= "codice"
+                            placeholder="Inserire il Codice Operatore"
+                            [(ngModel)]="operatore.codice"  />
+                    
+                <div *ngIf="submitted && operatoreForm.controls.codice.errors">
+                    <div *ngIf="operatoreForm.controls.codice.errors.required"  class="alert-danger">Il codice e' un campo obbligatorio</div>
+                </div> 
+            </div>
+            
+            <div class="form-group col-sm-6">
+                <label for="partitaIva">Partita Iva</label>
+                    <input 
+                        type="text"
+                        placeholder="Inserire la Partita Iva" 
+                        name="partitaIva" 
+                        id="partitaIva" 
+                        class="form-control" 
+                        formControlName= "partitaIva"
+                        [(ngModel)]="operatore.partitaIva"
+                    />   
+                    <div *ngIf="submitted && operatoreForm.controls.partitaIva.errors" >
+                        <div *ngIf="operatoreForm.controls.partitaIva.errors.required" class="alert-danger">La Partita Iva e' un campo obbligatorio</div>
+                    </div>    
+            </div>
+        
+            <div class="form-group col-sm-6">
+                <label for="codiceFiscale">Codice Fiscale</label>
+                <input 
+                    type="text"
+                    id="codiceFiscale" 
+                    name="codiceFiscale" 
+                    class="form-control" 
+                    formControlName= "codiceFiscale"
+                    placeholder="Inserire il Codice Fiscale"
+                    [(ngModel)]="operatore.codiceFiscale"  />
+            
+                <div *ngIf="submitted && operatoreForm.controls.codiceFiscale.errors">
+                    <div *ngIf="operatoreForm.controls.codiceFiscale.errors.required"  class="alert-danger">Il Codice Fiscale e' un campo obbligatorio</div>
+                </div> 
+            </div>
+
+            <div class="form-group col-sm-12">
+                <label for="sedelegaleIn"> Sede Legale in </label>
+                <div class="form-check form-check-inline" >
+                        <label class="form-check-label" *ngFor="let item of tipoSedeLegaleList">
+                            <input class="form-check-input" (change)=onChangeTipoSedeLegale()
+                                type="radio" 
+                                [(ngModel)]="operatore.tipoStatoSedeLegale" 
+                                name="tipoStatoSedeLegale" 
+                                id="tipoStatoSedeLegale" 
+                                formControlName="tipoStatoSedeLegale"
+                                value="{{item.id}}">  
+                                    {{item.descrizione}}
+                        </label> 
+                    </div>  
+        </div>
+        <div class="form-group col-sm-6" *ngIf="operatore.tipoStatoSedeLegale === 'I' ">
+            <label for="provinciaNascita">Provincia Sede Legale</label>
+                <select class="form-control" 
+                    name="provinciaSedeLegale"  
+                    [(ngModel)]="operatore.provinciaSedeLegale"  
+                    id="provinciaSedeLegale"
+                    formControlName="provinciaSedeLegale"
+                    (change)=onChangeProvincia()
+                    >
+                   
+                    <option *ngFor="let p of elencoProvince" [value]="p.codice" >
+                        {{p.descrizione}}
+                    </option>
+              </select>    
+        </div>
+
+
+        <div class="form-group col-sm-6" *ngIf="operatore.tipoStatoSedeLegale === 'I' ">
+            <label for="comuneNascita">Comune Sede Legale</label>
+                <select class="form-control" 
+                    name="comuneSedeLegale" 
+                    id="comuneSedeLegale"  
+                    [(ngModel)]="operatore.comuneSedeLegale"  
+                    formControlName="comuneSedeLegale"
+                    >
+                   
+                    <option *ngFor="let p of elencoComuni" [value]="p.codice" >
+                        {{p.descrizione}}
+                    </option>
+              </select>    
+        </div>
+
+        <div class="form-group col-sm-10" *ngIf="operatore.tipoStatoSedeLegale === 'I' ">
+            <label for="indirizzoSedeLegale">Indirizzo Sede Legale</label>
+            <input 
+                type="text"
+                id="indirizzoSedeLegale" 
+                name="indirizzoSedeLegale" 
+                class="form-control" 
+                formControlName= "indirizzoSedeLegale"
+                placeholder="Inserire l'indirizzo "
+                [(ngModel)]="operatore.indirizzoSedeLegale"  />
+        
+            <div *ngIf="submitted && operatoreForm.controls.indirizzoSedeLegale.errors">
+                <div *ngIf="operatoreForm.controls.indirizzoSedeLegale.errors.required"  class="alert-danger">L'indirizzo e' un campo obbligatorio</div>
+            </div> 
+        </div>
+
+        <div class="form-group col-sm-2" *ngIf="operatore.tipoStatoSedeLegale === 'I' ">
+            <label for="capSedeLegale">Cap Sede Legale</label>
+            <input 
+                type="text"
+                id="capSedeLegale" 
+                name="capSedeLegale" 
+                class="form-control" 
+                formControlName= "capSedeLegale"
+                placeholder="Inserire il CAP"
+                [(ngModel)]="operatore.capSedeLegale"  />
+        
+            <div *ngIf="submitted && operatoreForm.controls.capSedeLegale.errors">
+                <div *ngIf="operatoreForm.controls.capSedeLegale.errors.required"  class="alert-danger">Il cap e' un campo obbligatorio</div>
+            </div> 
+        </div>
+
+        <div class="form-group col-sm-6" *ngIf="operatore.tipoStatoSedeLegale === 'E' ">
+            <label for="provinciaNascita">Citta Sede Legale</label>
+            <input 
+                placeholder="Città Sede Legale" 
+                name="cittaEsteraSedeLegale" 
+                id="cittaEsteraSedeLegale" 
+                type="text" 
+                class="form-control" 
+                formControlName="cittaEsteraSedeLegale"
+                [(ngModel)]="operatore.cittaEsteraSedeLegale"
+            />
+        </div>
+        <div class="form-group col-sm-6" *ngIf="operatore.tipoStatoSedeLegale === 'E' ">
+            <label for="statoEsteroSedeLegale">Stato Sede Legale</label>
+            <select class="form-control" 
+                name="statoEsteroSedeLegale" 
+                id="statoEsteroSedeLegale"  
+                [(ngModel)]="operatore.statoEsteroSedeLegale"  
+                formControlName="statoEsteroSedeLegale"
+                >
+            <option *ngFor="let p of elencoStatiEstero" [value]="p.codice" >
+                {{p.descrizione}}
+            </option>  
+            </select>  
+        </div>
+        
+        <div class="form-group col-sm-6">
+            <label for="email">Email</label>
+            <input 
+                placeholder="Email" 
+                name="email" 
+                id="email" 
+                type="email" 
+                class="form-control" 
+                formControlName= "email"
+                [(ngModel)]="operatore.email"
+            />
+            <div *ngIf="submitted && operatoreForm.controls.email.errors">
+                <div *ngIf="operatoreForm.controls.email.errors.required"  class="alert-danger">Email e' un campo obbligatorio</div>
+                <div *ngIf="operatoreForm.controls.email.errors.email"  class="alert-danger">Formato Email non corretto</div>
+            </div>          
+            
+    </div>
+    <div class="form-group col-sm-6">
+            <label for="email">Telefono</label>
+            <input 
+                placeholder="Telefono" 
+                name="telefono" 
+                id="telefono" 
+                type="text" 
+                class="form-control" 
+                formControlName= "telefono"
+                [(ngModel)]="operatore.telefono"
+            />
+        <div *ngIf="submitted && operatoreForm.controls.telefono.errors">
+            <div *ngIf="operatoreForm.controls.telefono.errors.required"  class="alert-danger">Il telefono e' un campo obbligatorio</div>
+        </div>    
+        
+    </div>
             
             
             

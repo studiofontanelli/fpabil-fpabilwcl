@@ -1,7 +1,8 @@
 
-
+<!--
 PROVINCE: {{this.elencoProvince | json}} <br>
 FORM INVALID: {{richiedenteForm.controls.nome}} <br>
+-->
 
 
 <form [formGroup]="richiedenteForm">
@@ -45,38 +46,134 @@ FORM INVALID: {{richiedenteForm.controls.nome}} <br>
             </div>
 
             <div class="form-group col-sm-6">
-                    <label for="email">Email</label>
+                    <label for="dataNascita">Data nascita</label>
                     <input 
-                        placeholder="Email" 
-                        name="email" 
-                        id="email" 
-                        type="email" 
+                        type="date"
+                        id="dataNascita" 
+                        name="dataNascita" 
                         class="form-control" 
-                        formControlName= "email"
-                        [(ngModel)]="richiedente.email"
-                    />
-                    <div *ngIf="submitted && richiedenteForm.controls.email.errors">
-                        <div *ngIf="richiedenteForm.controls.email.errors.required"  class="alert-danger">Email e' un campo obbligatorio</div>
-                        <div *ngIf="richiedenteForm.controls.email.errors.email"  class="alert-danger">Formato Email non corretto</div>
-                    </div>          
-                    
+                        formControlName= "dataNascita"
+                        [(ngModel)]="richiedente.dataNascita"  />
+                <div *ngIf="submitted && richiedenteForm.controls.dataNascita.errors">
+                    <div *ngIf="richiedenteForm.controls.dataNascita.errors.required"  class="alert-danger">La data nascita e' un campo obbligatorio</div>
+                </div> 
             </div>
             <div class="form-group col-sm-6">
-                    <label for="email">Telefono</label>
-                    <input 
-                        placeholder="Telefono" 
-                        name="telefono" 
-                        id="telefono" 
-                        type="text" 
-                        class="form-control" 
-                        formControlName= "telefono"
-                        [(ngModel)]="richiedente.telefono"
-                    />
-                <div *ngIf="submitted && richiedenteForm.controls.telefono.errors">
-                    <div *ngIf="richiedenteForm.controls.telefono.errors.required"  class="alert-danger">Il telefono e' un campo obbligatorio</div>
-                </div>    
-                
+
             </div>
+            <div class="form-group col-sm-12">
+                    <label for="natoIn"> Nato in </label>
+                    <div class="form-check form-check-inline" >
+                            <label class="form-check-label" *ngFor="let item of tipoStatoNascitaList">
+                                <input class="form-check-input" (change)=onChangeTipoStatoNascita()
+                                    type="radio" 
+                                    [(ngModel)]="richiedente.tipoStatoNascita" 
+                                    name="tipoStatoNascita" 
+                                    id="tipoStatoNascita" 
+                                    formControlName="tipoStatoNascita"
+                                    value="{{item.id}}"> {{item.descrizione}}
+                            </label> 
+                        </div>  
+            </div>
+            
+                
+            <div class="form-group col-sm-6" *ngIf="richiedente.tipoStatoNascita === 'I' ">
+                <label for="provinciaNascita">Provincia Nascita</label>
+                    <select class="form-control" 
+                        name="provinciaNascita"  
+                        [(ngModel)]="richiedente.provinciaNascita"  
+                        id="provinciaNascita"
+                        formControlName="provinciaNascita"
+                        (change)=onChangeProvincia()
+                        >
+                       
+                        <option *ngFor="let p of elencoProvince" [value]="p.codice" >
+                            {{p.descrizione}}
+                        </option>
+                  </select>    
+            </div>
+
+
+            <div class="form-group col-sm-6" *ngIf="richiedente.tipoStatoNascita === 'I' ">
+                <label for="comuneNascita">Comune Nascita</label>
+                    <select class="form-control" 
+                        name="comuneNascita" 
+                        id="comuneNascita"  
+                        [(ngModel)]="richiedente.comuneNascita"  
+                        formControlName="comuneNascita"
+                        >
+                       
+                        <option *ngFor="let p of elencoComuni" [value]="p.codice" >
+                            {{p.descrizione}}
+                        </option>
+                  </select>    
+            </div>
+            
+
+           
+
+            <div class="form-group col-sm-6" *ngIf="richiedente.tipoStatoNascita === 'E' ">
+                <label for="provinciaNascita">Citta di nascita</label>
+                <input 
+                    placeholder="Città di nascita" 
+                    name="cittaEsteraNascita" 
+                    id="cittaEsteraNascita" 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="cittaEsteraNascita"
+                    [(ngModel)]="richiedente.cittaEsteraNascita"
+                />
+            </div>
+            <div class="form-group col-sm-6" *ngIf="richiedente.tipoStatoNascita === 'E' ">
+                <label for="statoEsteroNascita">Stato di nascita</label>
+                <select class="form-control" 
+                    name="statoEsteroNascita" 
+                    id="statoEsteroNascita"  
+                    [(ngModel)]="richiedente.statoEsteroNascita"  
+                    formControlName="statoEsteroNascita"
+                    >
+                <option *ngFor="let p of elencoStatiEstero" [value]="p.codice" >
+                    {{p.descrizione}}
+                </option>  
+                </select>  
+            </div>
+
+            <div class="form-group col-sm-6">
+                        <label for="email">Email</label>
+                        <input 
+                            placeholder="Email" 
+                            name="email" 
+                            id="email" 
+                            type="email" 
+                            class="form-control" 
+                            formControlName= "email"
+                            [(ngModel)]="richiedente.email"
+                        />
+                        <div *ngIf="submitted && richiedenteForm.controls.email.errors">
+                            <div *ngIf="richiedenteForm.controls.email.errors.required"  class="alert-danger">Email e' un campo obbligatorio</div>
+                            <div *ngIf="richiedenteForm.controls.email.errors.email"  class="alert-danger">Formato Email non corretto</div>
+                        </div>          
+                        
+                </div>
+                <div class="form-group col-sm-6">
+                        <label for="email">Telefono</label>
+                        <input 
+                            placeholder="Telefono" 
+                            name="telefono" 
+                            id="telefono" 
+                            type="text" 
+                            class="form-control" 
+                            formControlName= "telefono"
+                            [(ngModel)]="richiedente.telefono"
+                        />
+                    <div *ngIf="submitted && richiedenteForm.controls.telefono.errors">
+                        <div *ngIf="richiedenteForm.controls.telefono.errors.required"  class="alert-danger">Il telefono e' un campo obbligatorio</div>
+                    </div>    
+                    
+                </div>
+
+            <!-- ITALIA-->
+           
             
             <!--
             <div class="form-group">

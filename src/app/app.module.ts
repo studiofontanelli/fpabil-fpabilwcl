@@ -25,6 +25,7 @@ import { PersonaListComponent } from './components/persona/persona-list/persona-
 import { RielipogoComponent } from './components/rielipogo/rielipogo.component';
 import { PersonaEditComponent } from './components/persona/persona-edit/persona-edit.component';
 import { PersonaRowComponent } from './components/persona/persona-row/persona-row.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { PersonaRowComponent } from './components/persona/persona-row/persona-ro
     RielipogoComponent,
     PersonaEditComponent,
     PersonaRowComponent
+   
   ],
   imports: [
     HttpClientModule, 
@@ -45,6 +47,7 @@ import { PersonaRowComponent } from './components/persona/persona-row/persona-ro
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
+    NgxSpinnerModule,
     LoggerModule.forRoot({
       serverLoggingUrl: `${environment.apiUrl}api/logs`,
       level:environment.logLevel,

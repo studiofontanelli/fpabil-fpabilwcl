@@ -132,3 +132,16 @@ app/components/common/header
 # Come creare un servizio
 
 ng generate service services/common/anagrafica
+
+
+
+# Spinner
+
+https://www.npmjs.com/package/ngx-spinner
+
+
+npm install ngx-spinner --save
+
+Loader spinner
+https://github.danielcardoso.net/load-awesome/animations.html
+
